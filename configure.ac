@@ -63,6 +63,14 @@ dnl   [],
 dnl   [AC_MSG_ERROR([M_PI missing])],
 dnl   [[#include <math.h>]])
 
+# shell substitution
+git_describe_long=$(git describe --long);
+
+AC_DEFINE_UNQUOTED([BARRY_VERSION],
+                   ["$git_describe_long"],
+                   [define barry version])
+
+
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

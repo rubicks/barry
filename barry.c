@@ -1,6 +1,13 @@
 /* barry/barry.c */
 
 
+#if HAVE_CONFIG_H
+#  include "config.h"
+#else
+#  error "missing config.h"
+#endif
+
+
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,10 +27,12 @@ do{                              \
 int
 main( int argc, char**argv )
 {
+#if 0
     printf( "\n" );
     WHEREAMI();
     for( int i = 0; i != argc; ++i )
         printf( "argv[%d] == \"%s\"\n", i, argv[i] );
+#endif
 
     while( true ){
         static struct option opts[] =
@@ -60,8 +69,7 @@ main( int argc, char**argv )
             break ;
 
         case 'V':
-            WHEREAMI();
-            printf( "option -V\n" );
+            printf( "%s\n", BARRY_VERSION );
             break ;
 
         case '?':
