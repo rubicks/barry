@@ -12,10 +12,10 @@ namespace barry
 {
     namespace detail
     {
-        boost::program_options::options_description&&
+        boost::program_options::options_description
         optdes( void );
 
-        boost::program_options::variables_map&&
+        boost::program_options::variables_map
         varmap( int ac, char const*av[] );
     }
 }
