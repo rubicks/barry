@@ -39,31 +39,47 @@ do{                           \
 /**/
 
 
-void print_help( void )
+bool
+goodc( char const c )
 {
-    printf("\nUsage:");
-    printf("\n  barry [options] [files...]");
-    printf("\n");
-    printf("\nOptions:");
-    printf("\n");
-    printf("\n  -V, --version     output version information and exit");
-    printf("\n  -h, --help        display this help and exit");
-    printf("\n  -o, --out <file>  write to specified file");
-    printf("\n");
-    printf("\n");
+    return
+        ( ( '0' <= c ) && ( c <= '9' ) ) ||
+        ( ( 'A' <= c ) && ( c <= 'Z' ) ) ||
+        ( ( 'a' <= c ) && ( c <= 'z' ) ) ||
+        ( '_' == c ) ;
+}
+
+
+char*
+symbolize( char const*o )
+{
+    static char buf[ PATH_MAX ] = { 0 };
+    for( size_t i = 0, n = strlen( o ); i < n ; ++i ){
+        buf[i] = goodc( o[i] ) ? o[i] : '_' ;
+    }
+    return buf ;
+}
+
+
+void
+print_help( FILE*stream )
+{
+    fprintf( stream, "\nUsage:");
+    fprintf( stream, "\n  barry [options] [files...]");
+    fprintf( stream, "\n");
+    fprintf( stream, "\nOptions:");
+    fprintf( stream, "\n");
+    fprintf( stream, "\n  -V, --version     output version information and exit");
+    fprintf( stream, "\n  -h, --help        display this help and exit");
+    fprintf( stream, "\n  -o, --out <file>  write to specified file");
+    fprintf( stream, "\n");
+    fprintf( stream, "\n");
 }
 
 
 int
 main( int const argc, char**argv )
 {
-#if 0
-    printf( "\n" );
-    WHEREAMI();
-    for( int i = 0; i != argc; ++i )
-        printf( "argv[%d] == \"%s\"\n", i, argv[i] );
-#endif
-
     FILE*foutput = stdout ;
 
     while( true ){
@@ -103,7 +119,7 @@ main( int const argc, char**argv )
             return EXIT_SUCCESS ;
 
         case 'h':
-            print_help();
+            print_help( stdout );
             return EXIT_SUCCESS ;
 
         case 'o':
@@ -114,7 +130,7 @@ main( int const argc, char**argv )
             fprintf( stderr, "getopt_long() returned '%c'", c );
         case '?':
             /* getopt_long already printed an error message. */
-            print_help();
+            print_help( stderr );
             return EXIT_FAILURE ;
         }
     }
@@ -125,7 +141,9 @@ main( int const argc, char**argv )
 
         FAIL_UNLESS
             ( 0 <= fprintf
-              ( foutput, "\nunsigned char thingo [] =\n    " ) );
+              ( foutput,
+                "\nunsigned char %s [] =\n    ",
+                symbolize( argv[i] ) ) );
 
         char const*del = "{" ;
         for( int c = fgetc( finput ), m = 0; EOF != c; c = fgetc( finput ) ){
