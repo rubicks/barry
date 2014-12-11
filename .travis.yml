@@ -1,0 +1,26 @@
+# barry/.travis.yml
+
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+before_install:
+  - uname -a
+  - lsb_release --all
+  - sudo apt-get --assume-yes update
+
+script:
+  - mkdir -vp ${TRAVIS_BUILD_DIR}/m4
+  - cd `mktemp -t -d barry-build-XXXXXX`
+  - autoreconf -ivf ${TRAVIS_BUILD_DIR}
+  - ${TRAVIS_BUILD_DIR}/configure --prefix=`mktemp -t -d barry-prefix-XXXXXX`
+  - make
+  - make check
+  - make distcheck
+
+matrix:
+  allow_failures:
+    - compiler: clang
+  fast_finish: true
