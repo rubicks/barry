@@ -129,10 +129,9 @@ main( int const argc, char**argv )
 
         char*del = "{" ;
         for( int c = fgetc( finput ), m = 0; EOF != c; c = fgetc( finput ) ){
-            if( 0 > fprintf( foutput, "%s 0x%02x", del, c ) ){
-                perror( "fprintf failure" );
-                return EXIT_FAILURE ;
-            }
+            FAIL_UNLESS
+                ( 0 <= fprintf
+                  ( foutput, "%s 0x%02x", del, c ) );
             del = ( ++m % 8 ) ? "," : ",\n     " ;
         }
         fprintf( foutput, " };\n\n" );
