@@ -53,7 +53,8 @@ goodc( char const c )
 char*
 symbolize( char const*o )
 {
-    static char buf[ PATH_MAX ] = { 0 };
+    static char buf[ PATH_MAX ] ;
+    memset( buf, 0, PATH_MAX );
     for( size_t i = 0, n = strlen( o ); i < n ; ++i ){
         buf[i] = goodc( o[i] ) ? o[i] : '_' ;
     }
