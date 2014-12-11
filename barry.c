@@ -24,6 +24,20 @@ do{                              \
 /**/
 
 
+void print_help( void )
+{
+    printf("\nUsage:");
+    printf("\n  barry [options] [files...]");
+    printf("\n");
+    printf("\nOptions:");
+    printf("\n");
+    printf("\n  -h, --help     display this help and exit");
+    printf("\n  -V, --version  output version information and exit");
+    printf("\n");
+    printf("\n");
+}
+
+
 int
 main( int argc, char**argv )
 {
@@ -37,8 +51,8 @@ main( int argc, char**argv )
     while( true ){
         static struct option opts[] =
             {
-                {"help",    no_argument,       0, 'h'},
-                {"version", no_argument,       0, 'V'},
+                {"help",    no_argument, 0, 'h'},
+                {"version", no_argument, 0, 'V'},
                 {0, 0, 0, 0}
             };
 
@@ -64,13 +78,12 @@ main( int argc, char**argv )
             break ;
 
         case 'h':
-            WHEREAMI();
-            printf( "option -h\n" );
-            break ;
+            print_help();
+            return EXIT_SUCCESS ;
 
         case 'V':
-            printf( "%s\n", BARRY_VERSION );
-            break ;
+            printf( "barry %s\n", BARRY_VERSION );
+            return EXIT_SUCCESS ;
 
         case '?':
             /* getopt_long already printed an error message. */
