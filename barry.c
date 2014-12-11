@@ -125,7 +125,7 @@ main( int const argc, char**argv )
 
         FAIL_UNLESS
             ( 0 <= fprintf
-              ( foutput, "\n\nunsigned char thingo [] =\n    " ) );
+              ( foutput, "\nunsigned char thingo [] =\n    " ) );
 
         char*del = "{" ;
         for( int c = fgetc( finput ), m = 0; EOF != c; c = fgetc( finput ) ){
