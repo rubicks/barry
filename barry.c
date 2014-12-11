@@ -127,7 +127,7 @@ main( int const argc, char**argv )
             ( 0 <= fprintf
               ( foutput, "\nunsigned char thingo [] =\n    " ) );
 
-        char*del = "{" ;
+        char const*del = "{" ;
         for( int c = fgetc( finput ), m = 0; EOF != c; c = fgetc( finput ) ){
             FAIL_UNLESS
                 ( 0 <= fprintf
@@ -135,7 +135,10 @@ main( int const argc, char**argv )
             del = ( ++m % 8 ) ? "," : ",\n     " ;
         }
         fprintf( foutput, " };\n\n" );
+        FAIL_UNLESS( 0 == fclose( finput ) );
     }
+
+    FAIL_UNLESS( 0 == fclose( foutput ) );
 
     return EXIT_SUCCESS ;
 }
