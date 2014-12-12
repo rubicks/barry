@@ -63,32 +63,47 @@ symbolize( char const*o )
 
 
 void
-print_help( FILE*stream )
+print_help( FILE*f )
 {
-    fprintf( stream, "\nUsage:");
-    fprintf( stream, "\n  barry [options] [files...]");
-    fprintf( stream, "\n");
-    fprintf( stream, "\nOptions:");
-    fprintf( stream, "\n");
-    fprintf( stream, "\n  -V, --version     output version information and exit");
-    fprintf( stream, "\n  -h, --help        display this help and exit");
-    fprintf( stream, "\n  -o, --out <file>  write to specified file");
-    fprintf( stream, "\n");
-    fprintf( stream, "\n");
+    fprintf( f, "\nUsage:");
+    fprintf( f, "\n  barry [option]... [<file>...]");
+    fprintf( f, "\n");
+    fprintf( f, "\nOptions:");
+    fprintf( f, "\n");
+    fprintf( f, "\n  -V, --version     output version information and exit");
+    fprintf( f, "\n  -h, --help        display this help and exit");
+    fprintf( f, "\n  -o, --out <file>  write to specified file (default stdout)" );
+    fprintf( f, "\n");
+    fprintf( f, "\n");
+}
+
+
+void
+readwrite( FILE*fin, FILE*fout )
+{
+    char const*del = "\n{" ;
+    for( int c = fgetc( fin ), m = 0; EOF != c; c = fgetc( fin ) ){
+        FAIL_UNLESS
+            ( 0 <= fprintf
+              ( fout, "%s 0x%02x", del, c ) );
+        del = ( ++m % 8 ) ? "," : ",\n " ;
+    }
+    fprintf( fout, " };\n" );
+
 }
 
 
 int
 main( int const argc, char**argv )
 {
-    FILE*foutput = stdout ;
+    FILE*fout = stdout ;
 
     while( true ){
         static struct option opts[] =
             {
                 { "help",    no_argument,       0, 'h' },
                 { "version", no_argument,       0, 'V' },
-                { "output",  required_argument, 0, 'o' },
+                { "out",     required_argument, 0, 'o' },
                 { 0, 0, 0, 0 }
             };
 
@@ -124,7 +139,7 @@ main( int const argc, char**argv )
             return EXIT_SUCCESS ;
 
         case 'o':
-            FAIL_UNLESS( foutput = fopen( optarg, "w" ) );
+            FAIL_UNLESS( fout = fopen( optarg, "w" ) );
             break ;
 
         default:
@@ -136,28 +151,34 @@ main( int const argc, char**argv )
         }
     }
 
-    for( int i = optind, n = argc; i < n; ++i ){
-        FILE*finput ;
-        FAIL_UNLESS( finput = fopen( argv[i], "r" ) );
 
-        FAIL_UNLESS
-            ( 0 <= fprintf
-              ( foutput,
-                "\nunsigned char %s [] =\n    ",
-                symbolize( argv[i] ) ) );
+    size_t non_opt_args = 0 ;
 
-        char const*del = "{" ;
-        for( int c = fgetc( finput ), m = 0; EOF != c; c = fgetc( finput ) ){
+    for( int i = optind, n = argc ; i < n ; ++i ){
+        ++non_opt_args ;
+
+        FILE*fin ;
+        if( 0 == strcmp( "-", argv[i] ) ){
+            /* do explicit stdin */
+            fin = stdin ;
+        }else{
+            /* do named file */
+            FAIL_UNLESS( fin = fopen( argv[i], "r" ) );
             FAIL_UNLESS
                 ( 0 <= fprintf
-                  ( foutput, "%s 0x%02x", del, c ) );
-            del = ( ++m % 8 ) ? "," : ",\n     " ;
+                  ( fout,
+                    "\nunsigned char %s [] =",
+                    symbolize( argv[i] ) ) );
         }
-        fprintf( foutput, " };\n\n" );
-        FAIL_UNLESS( 0 == fclose( finput ) );
+        readwrite( fin, fout );
+        FAIL_UNLESS( 0 == fclose( fin ) );
     }
 
-    FAIL_UNLESS( 0 == fclose( foutput ) );
+    if( 0 == non_opt_args ){
+        readwrite( stdin, fout );
+    }
+
+    FAIL_UNLESS( 0 == fclose( fout ) );
 
     return EXIT_SUCCESS ;
 }
