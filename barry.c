@@ -81,7 +81,7 @@ print_help( FILE*f )
 void
 readwrite( FILE*fin, FILE*fout )
 {
-    char const*del = "\n{" ;
+    char const*del = "{" ;
     for( int c = fgetc( fin ), m = 0; EOF != c; c = fgetc( fin ) ){
         FAIL_UNLESS
             ( 0 <= fprintf
@@ -167,7 +167,7 @@ main( int const argc, char**argv )
             FAIL_UNLESS
                 ( 0 <= fprintf
                   ( fout,
-                    "\nunsigned char %s [] =",
+                    "unsigned char %s [] =\n",
                     symbolize( argv[i] ) ) );
         }
         readwrite( fin, fout );
