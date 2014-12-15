@@ -2,7 +2,7 @@
 
 AC_PREREQ([2.68])
 AC_INIT([barry],
-        [0.1.0-snapshot],
+        [0.2.0-snapshot],
         [rubicks00@gmail.com],
         [barry],
         [https://github.com/rubicks/barry])

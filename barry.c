@@ -73,14 +73,22 @@ print_help( FILE*f )
     fprintf( f, "\n  -V, --version     output version information and exit");
     fprintf( f, "\n  -h, --help        display this help and exit");
     fprintf( f, "\n  -o, --out <file>  write to specified file (default stdout)" );
+    fprintf( f, "\n  -n, --name <sym>  symbol name for stdin" );
     fprintf( f, "\n");
     fprintf( f, "\n");
 }
 
 
 void
-readwrite( FILE*fin, FILE*fout )
+readwrite( FILE*fin, FILE*fout, char*name )
 {
+    if( name ){
+        FAIL_UNLESS
+            ( 0 <= fprintf
+              ( fout,
+                "unsigned char %s [] =\n", name ) );
+    }
+
     char const*del = "{" ;
     for( int c = fgetc( fin ), m = 0; EOF != c; c = fgetc( fin ) ){
         FAIL_UNLESS
@@ -89,7 +97,6 @@ readwrite( FILE*fin, FILE*fout )
         del = ( ++m % 8 ) ? "," : ",\n " ;
     }
     fprintf( fout, " };\n" );
-
 }
 
 
@@ -98,19 +105,22 @@ main( int const argc, char**argv )
 {
     FILE*fout = stdout ;
 
+    char*name = NULL ;
+
     while( true ){
         static struct option opts[] =
             {
                 { "help",    no_argument,       0, 'h' },
                 { "version", no_argument,       0, 'V' },
                 { "out",     required_argument, 0, 'o' },
+                { "name",    required_argument, 0, 'n' },
                 { 0, 0, 0, 0 }
             };
 
         /* getopt_long stores the option index here. */
         int optidx = 0;
 
-        int c = getopt_long( argc, argv, "Vho:", opts, &optidx );
+        int c = getopt_long( argc, argv, "Vho:n:", opts, &optidx );
 
         /* printf( "optidx == %d\n", optidx ); */
 
@@ -142,6 +152,14 @@ main( int const argc, char**argv )
             FAIL_UNLESS( fout = fopen( optarg, "w" ) );
             break ;
 
+        case 'n':
+            {
+                size_t n = strlen( optarg );
+                FAIL_UNLESS( name = (char*)malloc( 1 + n ) );
+                FAIL_UNLESS( memcpy( name, optarg, 1 + n ) );
+                break ;
+            }
+
         default:
             fprintf( stderr, "getopt_long() returned '%c'", c );
         case '?':
@@ -157,25 +175,25 @@ main( int const argc, char**argv )
     for( int i = optind, n = argc ; i < n ; ++i ){
         ++non_opt_args ;
 
-        FILE*fin ;
         if( 0 == strcmp( "-", argv[i] ) ){
             /* do explicit stdin */
-            fin = stdin ;
+            readwrite( stdin, fout, name );
         }else{
             /* do named file */
+            FILE*fin ;
             FAIL_UNLESS( fin = fopen( argv[i], "r" ) );
-            FAIL_UNLESS
-                ( 0 <= fprintf
-                  ( fout,
-                    "unsigned char %s [] =\n",
-                    symbolize( argv[i] ) ) );
+            readwrite( fin, fout, symbolize( argv[i] ) );
+            FAIL_UNLESS( 0 == fclose( fin ) );
         }
-        readwrite( fin, fout );
-        FAIL_UNLESS( 0 == fclose( fin ) );
     }
 
     if( 0 == non_opt_args ){
-        readwrite( stdin, fout );
+        readwrite( stdin, fout, name );
+    }
+
+    if( name ){
+        free( name );
+        name = NULL ;
     }
 
     FAIL_UNLESS( 0 == fclose( fout ) );
