@@ -25,7 +25,7 @@ Read stdin explicitly
     { 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x2c, 0x20, 0x42,
       0x61, 0x72, 0x72, 0x79, 0x21, 0x0a };
 
-Read stdin, declare named symbol
+Read stdin, give it a named symbol
 
     $ echo "give me a name" | ./barry -n thingo
     unsigned char thingo [] =
