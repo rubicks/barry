@@ -2,7 +2,7 @@
 
 AC_PREREQ([2.68])
 AC_INIT([barry],
-        [m4_esyscmd_s([git describe --always])],
+        [m4_esyscmd_s([git describe --always --dirty])],
         [rubicks00@gmail.com],
         [barry],
         [https://github.com/rubicks/barry])
