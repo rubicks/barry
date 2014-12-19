@@ -22,11 +22,8 @@ AC_PROG_CC_C99
 
 
 # Checks for libraries.
-
-dnl AX_BOOST_BASE([1.46.0],,AC_MSG_ERROR([Boost >= v1.46.0 missing]))
-
-dnl AC_CHECK_LIB([boost_program_options],[main],[],
-dnl   [AC_MSG_ERROR([libboost_program_options missing])])
+#
+# nothing here yet
 
 
 # Checks for header files.
@@ -55,30 +52,6 @@ AC_TYPE_INT64_T
 # Checks for library functions.
 
 AC_CHECK_FUNCS([fmemopen])
-
-
-# Checks for symbol declarations
-
-dnl AC_CHECK_DECLS([M_PI],
-dnl   [],
-dnl   [AC_MSG_ERROR([M_PI missing])],
-dnl   [[#include <math.h>]])
-
-# shell substitution
-dnl git_describe_long=$(git describe --long);
-
-
-dnl AC_DEFINE_UNQUOTED([BARRY_VERSION],
-dnl                    ["$git_describe_long"],
-dnl                    [define barry version])
-
-
-dnl AC_DEFINE_UNQUOTED([SRCDIR],
-dnl                    ["$srcdir"],
-dnl                    [define source directory])
-
-dnl AC_CONFIG_COMMANDS([gitver],[cd $srcdir && git describe --long])
-
 
 
 AC_CONFIG_FILES([Makefile])
