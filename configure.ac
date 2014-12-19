@@ -2,10 +2,11 @@
 
 AC_PREREQ([2.68])
 AC_INIT([barry],
-        [0.2.0-snapshot],
+        [m4_esyscmd_s([git describe --always])],
         [rubicks00@gmail.com],
         [barry],
         [https://github.com/rubicks/barry])
+dnl AC_REVISION([m4_esyscmd_s([git describe --always])])
 AC_LANG_PUSH([C])
 AC_CONFIG_SRCDIR([barry.c])
 AC_CONFIG_HEADERS([config.h])
@@ -64,11 +65,19 @@ dnl   [AC_MSG_ERROR([M_PI missing])],
 dnl   [[#include <math.h>]])
 
 # shell substitution
-git_describe_long=$(git describe --long);
+dnl git_describe_long=$(git describe --long);
 
-AC_DEFINE_UNQUOTED([BARRY_VERSION],
-                   ["$git_describe_long"],
-                   [define barry version])
+
+dnl AC_DEFINE_UNQUOTED([BARRY_VERSION],
+dnl                    ["$git_describe_long"],
+dnl                    [define barry version])
+
+
+dnl AC_DEFINE_UNQUOTED([SRCDIR],
+dnl                    ["$srcdir"],
+dnl                    [define source directory])
+
+dnl AC_CONFIG_COMMANDS([gitver],[cd $srcdir && git describe --long])
 
 
 

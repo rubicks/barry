@@ -141,7 +141,7 @@ main( int const argc, char**argv )
             break ;
 
         case 'V':
-            printf( "barry %s\n", BARRY_VERSION );
+            printf( "%s\n", PACKAGE_STRING );
             return EXIT_SUCCESS ;
 
         case 'h':
