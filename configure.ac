@@ -6,7 +6,7 @@ AC_INIT([barry],
         [rubicks00@gmail.com],
         [barry],
         [https://github.com/rubicks/barry])
-dnl AC_REVISION([m4_esyscmd_s([git describe --always])])
+
 AC_LANG_PUSH([C])
 AC_CONFIG_SRCDIR([barry.c])
 AC_CONFIG_HEADERS([config.h])
