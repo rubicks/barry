@@ -1,0 +1,22 @@
+# barry/tests/testsuite.at
+
+# Initialize autotest.
+AT_INIT()
+AT_COLOR_TESTS()
+
+AT_SETUP([barry -V])
+AT_CHECK(["${abs_top_builddir}/barry" -V],[0],[ignore])
+AT_CLEANUP()
+
+AT_SETUP([barry --version])
+AT_CHECK(["${abs_top_builddir}/barry" --version],[0],[ignore])
+AT_CLEANUP()
+
+AT_SETUP([barry -h])
+AT_CHECK(["${abs_top_builddir}/barry" -h],[0],[ignore])
+AT_CLEANUP()
+
+AT_SETUP([barry --help])
+AT_CHECK(["${abs_top_builddir}/barry" --help],[0],[ignore])
+AT_CLEANUP()
+

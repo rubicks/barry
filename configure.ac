@@ -14,6 +14,7 @@ AC_CANONICAL_TARGET
 AC_LANG_PUSH([C])
 AC_CONFIG_SRCDIR([barry.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([subdir-objects])
 LT_PREREQ([2.4])
@@ -68,5 +69,6 @@ AC_TYPE_INT64_T
 dnl AC_CHECK_FUNCS([fmemopen],[],AC_MSG_ERROR([fmemopen missing]))
 
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 tests/Makefile])
 AC_OUTPUT
