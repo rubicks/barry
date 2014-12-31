@@ -4,19 +4,31 @@
 AT_INIT()
 AT_COLOR_TESTS()
 
-AT_SETUP([barry -V])
-AT_CHECK([$abs_top_builddir/barry$EXEEXT -V],[0],[ignore])
+m4_define([AT_BARRY],
+[AT_SETUP([barry $@])
+AT_CHECK([$abs_top_builddir/barry$ac_exeext $@],[0],[ignore])
 AT_CLEANUP()
+])
 
-AT_SETUP([barry --version])
-AT_CHECK([$abs_top_builddir/barry$EXEEXT --version],[0],[ignore])
-AT_CLEANUP()
+AT_BARRY([-V])
+AT_BARRY([--version])
+AT_BARRY([-h])
+AT_BARRY([--help])
 
-AT_SETUP([barry -h])
-AT_CHECK([$abs_top_builddir/barry$EXEEXT -h],[0],[ignore])
-AT_CLEANUP()
 
-AT_SETUP([barry --help])
-AT_CHECK([$abs_top_builddir/barry$EXEEXT --help],[0],[ignore])
-AT_CLEANUP()
+# AT_SETUP([barry -V])
+# AT_CHECK([$abs_top_builddir/barry$EXEEXT -V],[0],[ignore])
+# AT_CLEANUP()
+
+# AT_SETUP([barry --version])
+# AT_CHECK([$abs_top_builddir/barry$EXEEXT --version],[0],[ignore])
+# AT_CLEANUP()
+
+# AT_SETUP([barry -h])
+# AT_CHECK([$abs_top_builddir/barry$EXEEXT -h],[0],[ignore])
+# AT_CLEANUP()
+
+# AT_SETUP([barry --help])
+# AT_CHECK([$abs_top_builddir/barry$EXEEXT --help],[0],[ignore])
+# AT_CLEANUP()
 
