@@ -6,7 +6,7 @@ AT_COLOR_TESTS()
 
 m4_define([AT_BARRY],
 [AT_SETUP([barry $@])
-AT_CHECK([$abs_top_builddir/barry$ac_exeext $@],[0],[ignore])
+AT_CHECK([$abs_top_builddir/barry$EXEEXT $@],[0],[ignore])
 AT_CLEANUP()
 ])
 

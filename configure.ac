@@ -34,6 +34,8 @@ AC_MSG_NOTICE([target_os     == $target_os])
 
 AC_MSG_NOTICE([EXEEXT == $EXEEXT])
 
+AC_SUBST([EXEEXT])
+
 
 # Checks for programs.
 AC_PROG_CC_C99
