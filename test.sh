@@ -2,6 +2,8 @@
 #
 # barry/test.sh
 
+echo ${PWD}
+
 ./barry -h
 
 ./barry --help
