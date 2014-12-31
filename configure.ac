@@ -65,7 +65,7 @@ AC_TYPE_INT64_T
 
 # Checks for library functions.
 
-AC_CHECK_FUNCS([fmemopen])
+dnl AC_CHECK_FUNCS([fmemopen],[],AC_MSG_ERROR([fmemopen missing]))
 
 
 AC_CONFIG_FILES([Makefile])

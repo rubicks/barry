@@ -17,3 +17,5 @@ echo -n                                                         && \
     ${BARRY_PREFIX_DIR}/bin/barry --version                     && \
     ${BARRY_PREFIX_DIR}/bin/barry --help                        && \
     echo "big win"
+
+exit ${?}
