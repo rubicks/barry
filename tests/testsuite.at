@@ -5,18 +5,18 @@ AT_INIT()
 AT_COLOR_TESTS()
 
 AT_SETUP([barry -V])
-AT_CHECK(["${abs_top_builddir}/barry$EXEEXT" -V],[0],[ignore])
+AT_CHECK(["${abs_top_builddir}/barry${EXEEXT}" -V],[0],[ignore])
 AT_CLEANUP()
 
 AT_SETUP([barry --version])
-AT_CHECK(["${abs_top_builddir}/barry$EXEEXT" --version],[0],[ignore])
+AT_CHECK(["${abs_top_builddir}/barry${EXEEXT}" --version],[0],[ignore])
 AT_CLEANUP()
 
 AT_SETUP([barry -h])
-AT_CHECK(["${abs_top_builddir}/barry$EXEEXT" -h],[0],[ignore])
+AT_CHECK(["${abs_top_builddir}/barry${EXEEXT}" -h],[0],[ignore])
 AT_CLEANUP()
 
 AT_SETUP([barry --help])
-AT_CHECK(["${abs_top_builddir}/barry$EXEEXT" --help],[0],[ignore])
+AT_CHECK(["${abs_top_builddir}/barry${EXEEXT}" --help],[0],[ignore])
 AT_CLEANUP()
 
