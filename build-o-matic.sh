@@ -18,4 +18,10 @@ echo -n                                                         && \
     ${BARRY_PREFIX_DIR}/bin/barry --help                        && \
     echo "big win"
 
-exit ${?}
+_stat=${?}
+
+cat ${BARRY_BUILD_DIR}/tests/testsuite.log
+
+exit ${_stat}
+
+
