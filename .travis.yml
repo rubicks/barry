@@ -2,25 +2,30 @@
 
 language: c
 
-compiler:
-  - gcc
-  - clang
-
 before_install:
   - uname -a
   - lsb_release --all
   - sudo apt-get --assume-yes update
 
+install:
+  - sudo apt-get --assume-yes install mingw32
+  - sudo apt-get --assume-yes install mingw32-binutils
+  - sudo apt-get --assume-yes install mingw32-runtime
+  - sudo apt-get --assume-yes install wine
+
+env:
+  - TRCC=gcc TRCXX=g++
+  - TRCC=clang TRCXX=clang++
+  - TRCC=i586-mingw32msvc-gcc TRCXX=i586-mingw32msvc-g++
+
 script:
-  - mkdir -vp ${TRAVIS_BUILD_DIR}/m4
-  - cd `mktemp -t -d barry-build-XXXXXX`
-  - autoreconf -ivf ${TRAVIS_BUILD_DIR}
-  - ${TRAVIS_BUILD_DIR}/configure --prefix=`mktemp -t -d barry-prefix-XXXXXX`
-  - make
-  - make check
-  - make distcheck
+  - export CC=$TRCC
+  - export CXX=$TRCXX
+  - ${TRAVIS_BUILD_DIR}/build-o-matic.sh
 
 matrix:
   allow_failures:
-    - compiler: clang
+    - env: TRCC=clang TRCXX=clang++
+    - env: TRCC=i586-mingw32msvc-gcc TRCXX=i586-mingw32msvc-g++
   fast_finish: true
+

@@ -7,6 +7,10 @@ AC_INIT([barry],
         [barry],
         [https://github.com/rubicks/barry])
 
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
 AC_LANG_PUSH([C])
 AC_CONFIG_SRCDIR([barry.c])
 AC_CONFIG_HEADERS([config.h])
@@ -14,6 +18,16 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([subdir-objects])
 LT_PREREQ([2.4])
 LT_INIT([dlopen])
+
+AC_MSG_NOTICE([build_cpu     == $build_cpu])
+AC_MSG_NOTICE([build_vendor  == $build_vendor])
+AC_MSG_NOTICE([build_os      == $build_os])
+AC_MSG_NOTICE([host_cpu      == $host_cpu])
+AC_MSG_NOTICE([host_vendor   == $host_vendor])
+AC_MSG_NOTICE([host_os       == $host_os])
+AC_MSG_NOTICE([target_cpu    == $target_cpu])
+AC_MSG_NOTICE([target_vendor == $target_vendor])
+AC_MSG_NOTICE([target_os     == $target_os])
 
 # Checks for programs.
 AC_PROG_CC_C99
