@@ -11,6 +11,8 @@ AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
+AC_EXEEXT
+
 AC_LANG_PUSH([C])
 AC_CONFIG_SRCDIR([barry.c])
 AC_CONFIG_HEADERS([config.h])
@@ -29,6 +31,9 @@ AC_MSG_NOTICE([host_os       == $host_os])
 AC_MSG_NOTICE([target_cpu    == $target_cpu])
 AC_MSG_NOTICE([target_vendor == $target_vendor])
 AC_MSG_NOTICE([target_os     == $target_os])
+
+AC_MSG_NOTICE([EXEEXT == $EXEEXT])
+
 
 # Checks for programs.
 AC_PROG_CC_C99
