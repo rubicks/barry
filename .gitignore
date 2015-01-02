@@ -34,7 +34,6 @@
 /.deps/
 /INSTALL
 /Makefile
-/Makefile.in
 /aclocal.m4
 /autom4te.cache/
 /build-aux/
@@ -56,6 +55,7 @@
 /rendera
 /stamp-h1
 /test-driver
+Makefile.in
 
 # emacs temp files
 *~
