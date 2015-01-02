@@ -14,9 +14,7 @@ echo -n                                                         && \
     make check                                                  && \
     make distcheck                                              && \
     make install                                                && \
-    ${BARRY_PREFIX_DIR}/bin/barry --version                     && \
-    ${BARRY_PREFIX_DIR}/bin/barry --help                        && \
-    echo "big win"
+    echo && echo "big win"
 
 _stat=${?}
 
