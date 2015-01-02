@@ -77,5 +77,7 @@ dnl AC_CHECK_FUNCS([fmemopen],[],AC_MSG_ERROR([fmemopen missing]))
 
 
 AC_CONFIG_FILES([Makefile
-                 tests/Makefile])
+                 tests/Makefile
+                 tests/testsuite.at])
+
 AC_OUTPUT
