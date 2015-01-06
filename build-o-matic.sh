@@ -10,16 +10,9 @@ echo -n                                                         && \
     autoreconf -ivf ${PROJECT_DIR}                              && \
     export BARRY_PREFIX_DIR=$(mktemp -t -d barry-prefix-XXXXXX) && \
     ${PROJECT_DIR}/configure --prefix=${BARRY_PREFIX_DIR}       && \
-    make                                                        && \
-    make check                                                  && \
-    make distcheck                                              && \
-    make install                                                && \
+    make -j3                                                    && \
+    make -j3 check                                              && \
+    make -j3 distcheck                                          && \
+    make -j3 install                                            && \
     echo && echo "big win"
-
-_stat=${?}
-
-cat ${BARRY_BUILD_DIR}/tests/testsuite.log
-
-exit ${_stat}
-
 

@@ -1,6 +1,8 @@
 # barry/tests/Makefile.am
 
-$(abs_builddir)/package.m4: $(top_srcdir)/configure.ac
+PACKAGE_M4 = $(abs_builddir)/package.m4
+
+$(PACKAGE_M4): $(top_srcdir)/configure.ac
 	:;{ \
 	  echo '# Signature of the current package.' && \
 	  echo 'm4_define([AT_PACKAGE_NAME],' && \
@@ -20,9 +22,10 @@ $(abs_builddir)/package.m4: $(top_srcdir)/configure.ac
 TESTSUITE = $(builddir)/testsuite
 EXTRA_DIST = testsuite.at #$(TESTSUITE) package.m4 testsuite.at.in testsuite 
 # CONFIG_CLEAN_FILES = atconfig package.m4 testsuite.log testsuite.at $(TESTSUITE)
-CLEANFILES = atconfig package.m4 testsuite.log testsuite.at # $(TESTSUITE)
+CLEANFILES = atconfig testsuite.log testsuite.at # $(TESTSUITE)
 # DISTCLEANFILES = testsuite
 # DISTCLEANFILES = $(TESTSUITE)
+DISTCLEANFILES = $(PACKAGE_M4)
 
 check-local: atconfig $(TESTSUITE)
 	$(SHELL) '$(TESTSUITE)' $(TESTSUITEFLAGS)
@@ -40,7 +43,7 @@ clean-local: $(TESTSUITE)
 AUTOM4TE = $(SHELL) $(top_srcdir)/missing --run autom4te
 AUTOTEST = $(AUTOM4TE) --language=autotest
 
-$(TESTSUITE): testsuite.at $(abs_builddir)/package.m4
+$(TESTSUITE): testsuite.at $(PACKAGE_M4)
 	$(AUTOTEST) -I '$(abs_srcdir)' -o $@.tmp $@.at
 	mv $@.tmp $@
 
