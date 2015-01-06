@@ -1,5 +1,9 @@
-barry [![Build Status](https://travis-ci.org/rubicks/barry.svg?branch=master)](https://travis-ci.org/rubicks/barry)
+barry
 =======
+
+[![Build Status](https://travis-ci.org/rubicks/barry.svg?branch=master)](https://travis-ci.org/rubicks/barry)
+
+[![docker repo](http://dockeri.co/image/rubicks/barry)](https://registry.hub.docker.com/u/rubicks/barry/)
 
 ```barry``` makes Byte ARRaYs.
 
