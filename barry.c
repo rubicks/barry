@@ -89,12 +89,13 @@ readwrite( FILE*fin, FILE*fout, char*name )
                 "unsigned char %s [] =\n", name ) );
     }
 
-    char const*del = "{" ;
+    fprintf( fout, "{" );
+    char const*del = " " ;
     for( int c = fgetc( fin ), m = 0; EOF != c; c = fgetc( fin ) ){
         FAIL_UNLESS
             ( 0 <= fprintf
-              ( fout, "%s 0x%02x", del, c ) );
-        del = ( ++m % 8 ) ? "," : ",\n " ;
+              ( fout, "%s0x%02x", del, c ) );
+        del = ( ++m % 8 ) ? ", " : ",\n  " ;
     }
     fprintf( fout, " };\n" );
 }
