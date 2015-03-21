@@ -86,7 +86,7 @@ readwrite( FILE*fin, FILE*fout, char*name )
         FAIL_UNLESS
             ( 0 <= fprintf
               ( fout,
-                "unsigned char %s [] =\n", name ) );
+                "unsigned char const %s [] =\n", name ) );
     }
 
     fprintf( fout, "{" );
@@ -102,7 +102,7 @@ readwrite( FILE*fin, FILE*fout, char*name )
 
 
 int
-main( int const argc, char**argv )
+main( int const argc, char*const*argv )
 {
     FILE*fout = stdout ;
 
