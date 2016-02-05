@@ -20,7 +20,7 @@ AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([foreign subdir-objects dist-bzip2 dist-xz tar-pax])
-LT_PREREQ([2.4.6])
+LT_PREREQ([2.4])
 LT_INIT
 
 AC_MSG_NOTICE([build_cpu     == $build_cpu])
