@@ -2,7 +2,7 @@
 
 AC_PREREQ([2.68])
 AC_INIT([barry],
-        [m4_esyscmd_s([git describe --always --dirty])],
+        [m4_esyscmd_s([git describe --always --dirty --tags])],
         [rubicks00@gmail.com],
         [barry],
         [https://github.com/rubicks/barry])
@@ -19,9 +19,9 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_TESTDIR([tests])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([.])
-AM_INIT_AUTOMAKE([subdir-objects])
-LT_PREREQ([2.4])
-LT_INIT([dlopen])
+AM_INIT_AUTOMAKE([foreign subdir-objects dist-bzip2 dist-xz tar-pax])
+LT_PREREQ([2.4.6])
+LT_INIT
 
 AC_MSG_NOTICE([build_cpu     == $build_cpu])
 AC_MSG_NOTICE([build_vendor  == $build_vendor])
@@ -51,10 +51,9 @@ AC_PROG_CC_C99
 
 # Checks for header files.
 
-AC_CHECK_HEADER([getopt.h], [],[AC_MSG_ERROR([getopt.h missing])])
-AC_CHECK_HEADER([stdbool.h],[],[AC_MSG_ERROR([stdbool.h missing])])
-AC_CHECK_HEADER([stdint.h], [],[AC_MSG_ERROR([stdint.h missing])])
-AC_CHECK_HEADER([stdlib.h], [],[AC_MSG_ERROR([stdlib.h missing])])
+AC_HEADER_STDC # stdlib, stdarg, string, float.h
+AC_CHECK_HEADER([getopt.h],[],[AC_MSG_ERROR([getopt.h missing])])
+AC_CHECK_HEADER([limits.h],[],[AC_MSG_ERROR([limits.h missing])])
 
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -74,7 +73,7 @@ AC_TYPE_INT64_T
 
 # Checks for library functions.
 
-dnl AC_CHECK_FUNCS([fmemopen],[],AC_MSG_ERROR([fmemopen missing]))
+AC_CHECK_FUNCS([fmemopen])
 
 
 AC_CONFIG_FILES([Makefile

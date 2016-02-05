@@ -4,7 +4,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = . tests
 
-AM_CFLAGS = -Wall -Wextra -Werror -pedantic-errors # -rdynamic
+AM_CFLAGS = -std=c99 -Wall -Wextra -Werror -pedantic-errors
 
 bin_PROGRAMS = barry
 barry_SOURCES = barry.c
