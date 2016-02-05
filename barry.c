@@ -6,17 +6,12 @@
 
 #include "config.h"
 
-#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <getopt.h>
-
-#if !defined(HAVE_DECL_PATH_MAX)
-#define PATH_MAX 1024
-#endif
 
 #define WHEREAMI(STREAM)                                          \
   do {                                                            \
@@ -42,9 +37,9 @@ goodc(char const c)
 char *
 symbolize(char const *o)
 {
-  static char buf[PATH_MAX];
-  memset(buf, 0, PATH_MAX);
-  for (size_t i = 0, n = strlen(o); i < n; ++i) {
+  static char buf[64];
+  memset(buf, 0, 64);
+  for (size_t i = 0, n = 0x3f & strlen(o); i <= n; ++i) {
     buf[i] = goodc(o[i]) ? o[i] : '_';
   }
   return buf;
