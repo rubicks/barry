@@ -14,6 +14,10 @@
 
 #include <getopt.h>
 
+#if !defined(HAVE_DECL_PATH_MAX)
+#define PATH_MAX 1024
+#endif
+
 #define WHEREAMI(STREAM)                                          \
   do {                                                            \
     fprintf(STREAM, "%s; %s:%d\n", __func__, __FILE__, __LINE__); \

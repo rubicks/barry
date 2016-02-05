@@ -74,6 +74,7 @@ AC_TYPE_INT64_T
 # Checks for library functions.
 
 AC_CHECK_FUNCS([fmemopen])
+AC_CHECK_DECLS([PATH_MAX],[],[],[[#include <limits.h>]])
 
 
 AC_CONFIG_FILES([Makefile
